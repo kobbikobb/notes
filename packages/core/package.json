@@ -1,21 +1,21 @@
 {
-  "name": "@notes/core",
-  "type": "module",
-  "version": "0.0.0",
-  "scripts": {
-    "test": "sst shell vitest"
-  },
-  "exports": {
-    "./*": [
-      "./src/*/index.ts",
-      "./src/*.ts"
-    ]
-  },
-  "dependencies": {
-    "sst": "*"
-  },
-  "devDependencies": {
-    "@types/aws-lambda": "^8.10.149",
-    "vitest": "^2"
-  }
+    "name": "@notes/core",
+    "type": "module",
+    "version": "0.0.0",
+    "scripts": {
+        "test": "sst shell vitest"
+    },
+    "exports": {
+        "./*": [
+            "./src/*/index.ts",
+            "./src/*.ts"
+        ]
+    },
+    "dependencies": {
+        "sst": "*"
+    },
+    "devDependencies": {
+        "@types/aws-lambda": "^8.10.149",
+        "vitest": "^2"
+    }
 }

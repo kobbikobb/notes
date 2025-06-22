@@ -1,15 +1,19 @@
 {
-  "name": "notes",
-  "version": "0.0.0",
-  "workspaces": [
-    "packages/*"
-  ],
-  "scripts": {},
-  "devDependencies": {
-    "@tsconfig/node22": "^22",
-    "typescript": "^5"
-  },
-  "dependencies": {
-    "sst": "^3"
-  }
+    "name": "notes",
+    "version": "0.0.0",
+    "workspaces": [
+        "packages/*"
+    ],
+    "scripts": {
+        "prettier": "prettier --write .",
+        "prettier:check": "prettier --check ."
+    },
+    "devDependencies": {
+        "@tsconfig/node22": "^22",
+        "prettier": "^3.5.3",
+        "typescript": "^5"
+    },
+    "dependencies": {
+        "sst": "^3"
+    }
 }
