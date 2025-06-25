@@ -5,7 +5,7 @@ import { QueryCommand, DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 
 const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
-export const main = Util.handler(async (event) => {
+export const main = Util.handler(async () => {
     const params = {
         TableName: Resource.Notes.name,
         // 'KeyConditionExpression' defines the condition for the query

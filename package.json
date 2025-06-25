@@ -6,12 +6,18 @@
     ],
     "scripts": {
         "prettier": "prettier --write .",
-        "prettier:check": "prettier --check ."
+        "prettier:check": "prettier --check .",
+        "lint": "eslint . --ext .js,.ts,.tsx",
+        "lint:fix": "eslint . --ext .js,.ts,.tsx --fix"
     },
     "devDependencies": {
+        "@eslint/js": "^9.29.0",
         "@tsconfig/node22": "^22",
+        "eslint": "^9.29.0",
+        "globals": "^16.2.0",
         "prettier": "^3.5.3",
-        "typescript": "^5"
+        "typescript": "^5",
+        "typescript-eslint": "^8.35.0"
     },
     "dependencies": {
         "sst": "^3"
