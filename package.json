@@ -5,6 +5,7 @@
         "packages/*"
     ],
     "scripts": {
+        "test": "vitest",
         "prettier": "prettier --write .",
         "prettier:check": "prettier --check .",
         "lint": "eslint . --ext .js,.ts,.tsx",
