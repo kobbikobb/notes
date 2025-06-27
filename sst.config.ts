@@ -10,15 +10,18 @@ export default $config({
         };
     },
     async run() {
-        await import('./infra/storage');
-        await import('./infra/api');
+        const storage = await import('./infra/storage');
+        const api = await import('./infra/api');
         const auth = await import('./infra/auth');
 
         return {
-            UserPool: auth.userPool.id,
-            Region: aws.getRegionOutput().name,
-            IdentityPool: auth.identityPool.id,
-            UserPoolClient: auth.userPoolClient.id,
+            region: aws.getRegionOutput().name,
+            storageName: storage.table.name,
+            storageArn: storage.table.arn,
+            apiUrl: api.api.url,
+            authUserPoolId: auth.userPool.id,
+            authIdentityPoolId: auth.identityPool.id,
+            authUserPoolClientId: auth.userPoolClient.id,
         };
     },
 });

@@ -7,11 +7,11 @@ import { PutCommand, DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 export const main = Util.handler(async (event) => {
+    const userId = event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
     let data = {
         content: '',
         attachment: '',
     };
-
     if (event.body != null) {
         data = JSON.parse(event.body);
     }
@@ -19,12 +19,11 @@ export const main = Util.handler(async (event) => {
     const params = {
         TableName: Resource.Notes.name,
         Item: {
-            // The attributes of the item to be created
-            userId: '123', // The id of the author
-            noteId: uuid.v1(), // A unique uuid
-            content: data.content, // Parsed from request body
-            attachment: data.attachment, // Parsed from request body
-            createdAt: Date.now(), // Current Unix timestamp
+            userId,
+            noteId: uuid.v1(),
+            content: data.content,
+            attachment: data.attachment,
+            createdAt: Date.now(),
         },
     };
 

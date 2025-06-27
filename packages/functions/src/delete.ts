@@ -6,11 +6,13 @@ import { DeleteCommand, DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
 const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
 
 export const main = Util.handler(async (event) => {
+    const userId = event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+
     const params = {
         TableName: Resource.Notes.name,
         Key: {
-            userId: '123', // The id of the author
-            noteId: event?.pathParameters?.id, // The id of the note from the path
+            userId,
+            noteId: event?.pathParameters?.id,
         },
     };
 
