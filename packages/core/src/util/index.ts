@@ -1,6 +1,8 @@
 import { Context, APIGatewayProxyEvent } from 'aws-lambda';
 
-export function handler(lambda: (evt: APIGatewayProxyEvent, context: Context) => Promise<string>) {
+export function handler(
+    lambda: (handlerEvent: APIGatewayProxyEvent, context: Context) => Promise<string>
+) {
     return async function (event: APIGatewayProxyEvent, context: Context) {
         let body: string, statusCode: number;
 
@@ -19,4 +21,12 @@ export function handler(lambda: (evt: APIGatewayProxyEvent, context: Context) =>
             statusCode,
         };
     };
+}
+
+export function getUserId(event: APIGatewayProxyEvent): string {
+    const userId = event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+    if (!userId) {
+        throw new Error('Missing user identity');
+    }
+    return userId;
 }

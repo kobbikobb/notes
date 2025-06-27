@@ -9,7 +9,7 @@
 : "${username:?}"
 : "${password:?}"
 
-# Post note
+# Post Note
 npx aws-api-gateway-cli-test \
 --user-pool-id="$authUserPoolId" \
 --app-client-id="$authUserPoolClientId" \

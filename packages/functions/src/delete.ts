@@ -1,22 +1,14 @@
-import { Resource } from 'sst';
 import * as Util from '@notes/core/util';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { DeleteCommand, DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
-
-const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+import { deleteNoteItem } from '@notes/core/repositories';
 
 export const main = Util.handler(async (event) => {
-    const userId = event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+    const userId = Util.getUserId(event);
+    const noteId = event?.pathParameters?.id;
+    if (!noteId) {
+        throw new Error('Note ID is required.');
+    }
 
-    const params = {
-        TableName: Resource.Notes.name,
-        Key: {
-            userId,
-            noteId: event?.pathParameters?.id,
-        },
-    };
-
-    await dynamoDb.send(new DeleteCommand(params));
+    await deleteNoteItem(userId, noteId);
 
     return JSON.stringify({ status: true });
 });

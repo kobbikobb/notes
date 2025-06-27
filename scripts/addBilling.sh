@@ -9,8 +9,7 @@
 : "${username:?}"
 : "${password:?}"
 
-# Post billing information
-
+# Post Billing
 npx aws-api-gateway-cli-test \
 --username="$username" \
 --password="$password" \
@@ -19,7 +18,5 @@ npx aws-api-gateway-cli-test \
 --cognito-region="$region" \
 --identity-pool-id="$authIdentityPoolId" \
 --invoke-url="$apiUrl" \
---api-gateway-region="$region" \
---path-template="/billing" \
 --method="POST" \
 --body='{"source":"tok_visa","storage":21}'

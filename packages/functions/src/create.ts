@@ -1,13 +1,9 @@
 import * as uuid from 'uuid';
-import { Resource } from 'sst';
 import * as Util from '@notes/core/util';
-import { DynamoDBClient } from '@aws-sdk/client-dynamodb';
-import { PutCommand, DynamoDBDocumentClient } from '@aws-sdk/lib-dynamodb';
-
-const dynamoDb = DynamoDBDocumentClient.from(new DynamoDBClient({}));
+import { addNoteItem } from '@notes/core/repositories';
 
 export const main = Util.handler(async (event) => {
-    const userId = event.requestContext.authorizer?.iam.cognitoIdentity.identityId;
+    const userId = Util.getUserId(event);
     let data = {
         content: '',
         attachment: '',
@@ -16,18 +12,15 @@ export const main = Util.handler(async (event) => {
         data = JSON.parse(event.body);
     }
 
-    const params = {
-        TableName: Resource.Notes.name,
-        Item: {
-            userId,
-            noteId: uuid.v1(),
-            content: data.content,
-            attachment: data.attachment,
-            createdAt: Date.now(),
-        },
+    const item = {
+        userId,
+        noteId: uuid.v1(),
+        content: data.content,
+        attachment: data.attachment,
+        createdAt: Date.now(),
     };
 
-    await dynamoDb.send(new PutCommand(params));
+    await addNoteItem(item);
 
-    return JSON.stringify(params.Item);
+    return JSON.stringify(item);
 });
