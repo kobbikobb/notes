@@ -9,6 +9,10 @@ declare module "sst" {
       "type": "sst.aws.ApiGatewayV2"
       "url": string
     }
+    "Billing": {
+      "name": string
+      "type": "sst.aws.Dynamo"
+    }
     "IdentityPool": {
       "id": string
       "type": "sst.aws.CognitoIdentityPool"

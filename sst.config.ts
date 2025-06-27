@@ -16,8 +16,8 @@ export default $config({
 
         return {
             region: aws.getRegionOutput().name,
-            storageName: storage.table.name,
-            storageArn: storage.table.arn,
+            notesTableName: storage.notesTable.name,
+            billingTableName: storage.billingTable.name,
             apiUrl: api.api.url,
             authUserPoolId: auth.userPool.id,
             authIdentityPoolId: auth.identityPool.id,
