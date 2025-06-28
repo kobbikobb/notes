@@ -13,12 +13,14 @@ export default $config({
         const storage = await import('./infra/storage');
         const api = await import('./infra/api');
         const auth = await import('./infra/auth');
+        const web = await import('./infra/web');
 
         return {
             region: aws.getRegionOutput().name,
             notesTableName: storage.notesTable.name,
             billingTableName: storage.billingTable.name,
             apiUrl: api.api.url,
+            webUrl: web.frontend.url,
             authUserPoolId: auth.userPool.id,
             authIdentityPoolId: auth.identityPool.id,
             authUserPoolClientId: auth.userPoolClient.id,

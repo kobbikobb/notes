@@ -13,6 +13,10 @@ declare module "sst" {
       "name": string
       "type": "sst.aws.Dynamo"
     }
+    "Frontend": {
+      "type": "sst.aws.StaticSite"
+      "url": string
+    }
     "IdentityPool": {
       "id": string
       "type": "sst.aws.CognitoIdentityPool"
