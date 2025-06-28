@@ -32,5 +32,6 @@ export function getUserId(event: APIGatewayProxyEvent): string {
     if (!userId) {
         throw new Error('Missing user identity');
     }
+    console.log('User ID:', userId);
     return userId;
 }

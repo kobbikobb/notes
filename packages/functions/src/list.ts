@@ -3,6 +3,6 @@ import { getNoteItems } from '@notes/core/repositories';
 
 export const main = Util.handler(async (event) => {
     const userId = Util.getUserId(event);
-    const items = getNoteItems(userId);
+    const items = await getNoteItems(userId);
     return JSON.stringify(items);
 });
