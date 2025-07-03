@@ -1,15 +1,36 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import './App.css';
 import Routes from './Routes.tsx';
 import { AppContext, type AppContextType } from './lib/contextLib';
+import { Auth } from 'aws-amplify';
 
 function App() {
+    const [isAuthenticating, setIsAuthenticating] = useState(true);
     const [isAuthenticated, userHasAuthenticated] = useState(false);
 
-    function handleLogout() {
+    async function handleLogout() {
+        await Auth.signOut();
+
         userHasAuthenticated(false);
+    }
+
+    useEffect(() => {
+        onLoad();
+    }, []);
+
+    async function onLoad() {
+        try {
+            await Auth.currentSession();
+            userHasAuthenticated(true);
+        } catch (e) {
+            if (e !== 'No current user') {
+                alert(e);
+            }
+        }
+
+        setIsAuthenticating(false);
     }
 
     return (
