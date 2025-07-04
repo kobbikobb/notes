@@ -1,19 +1,24 @@
 import { useState, useEffect } from 'react';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
+import { useNavigate } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 import './App.css';
 import Routes from './Routes.tsx';
 import { AppContext, type AppContextType } from './lib/contextLib';
-import { Auth } from 'aws-amplify';
+import { onError } from './lib/errorLib';
 
 function App() {
     const [isAuthenticating, setIsAuthenticating] = useState(true);
     const [isAuthenticated, userHasAuthenticated] = useState(false);
+    const nav = useNavigate();
 
     async function handleLogout() {
         await Auth.signOut();
 
         userHasAuthenticated(false);
+
+        nav('/login');
     }
 
     useEffect(() => {
@@ -24,13 +29,17 @@ function App() {
         try {
             await Auth.currentSession();
             userHasAuthenticated(true);
-        } catch (e) {
-            if (e !== 'No current user') {
-                alert(e);
+        } catch (error) {
+            if (error !== 'No current user') {
+                onError(error);
             }
         }
 
         setIsAuthenticating(false);
+    }
+
+    if (isAuthenticating) {
+        return <div className="App container py-3">Loading...</div>;
     }
 
     return (
