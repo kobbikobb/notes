@@ -1,2 +1,15 @@
 .App {
 }
+
+.nav-link {
+    text-decoration: none;
+    padding: 6px 10px;
+    margin-left: 8px;
+    border-radius: 4px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.nav-link:hover {
+    background-color: #2d6cdf; /* subtle blue hover */
+    color: #ffffff;
+}
